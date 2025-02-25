@@ -1,6 +1,7 @@
 # 2025-02-25
 
 ## 初始化项目
+
 ```
 // 1、 初始化项目
 git init
@@ -24,5 +25,27 @@ git commit -m "初始化项目，远程连接测试"
 git push -u origin master
 
 // 7、 网页端查看远程仓库，可以看到刚才提交的修改，说明连接成功
+
+```
+
+## tailwindcss 配置以及第三方组件库的引入
+```
+ 1、 安装 tailwindcss, 官网： https://www.tailwindcss.cn/docs/guides/nextjs
+
+ 2、 安装 shadcn/ui 组件库，官网：https://ui.shadcn.com/docs/installation/next
+
+ 3、 安装 reactbits 组件库，官网：https://reactbits.dev/
+
+ - 初始化项目
+    npx jsrepo init https://reactbits.dev/ts/tailwind
+
+ - 按需安装组件，例如安装 SplashCursor
+    npx jsrepo add https://reactbits.dev/ts/tailwind/Animations/SplashCursor
+
+```
+
+## 封装动态背景组件 BackgroungVideo
+
+```
 
 ```
