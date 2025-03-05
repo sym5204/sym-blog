@@ -55,7 +55,17 @@
 
     --chart-5: 27 87% 67%;
 
-    --radius: 0.5rem}
+    --radius: 0.5rem;
+
+    --color-1: 0 100% 63%;
+
+    --color-2: 270 100% 63%;
+
+    --color-3: 210 100% 63%;
+
+    --color-4: 195 100% 63%;
+
+    --color-5: 90 100% 63%}
   .dark {
 
     --background: 240 10% 3.9%;
@@ -104,10 +114,18 @@
 
     --chart-4: 280 65% 60%;
 
-    --chart-5: 340 75% 55%}
+    --chart-5: 340 75% 55%;
+
+    --color-1: 0 100% 63%;
+
+    --color-2: 270 100% 63%;
+
+    --color-3: 210 100% 63%;
+
+    --color-4: 195 100% 63%;
+
+    --color-5: 90 100% 63%}
 }
-
-
 
 @layer base {
   * {
@@ -115,3 +133,47 @@
   }
 
 }
+
+/* 实现毛玻璃效果 */
+.glass-effect {
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+/* 隐藏滚动条  兼容性 */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* 隐藏滚动条  兼容性 */
+.scrollbar-hide {
+  scrollbar-width: none;
+}
+
+/* 鼠标悬停时实现毛玻璃效果 */
+.glass-hover:hover {
+  transition: all 0.3s ease;
+  backdrop-filter: blur(3px);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 全屏背景图片 */
+.bg-img {
+  background: url("/public//assets/img/qi.png") no-repeat center;
+  background-size: cover;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+} 
+
+
+
+
+
+
