@@ -65,7 +65,7 @@ const Home = () => {
                     </p>
                   </AnimatedGradientText>
 
-                  <InteractiveHoverButton className="self-center mt-4 w-max">开始探索</InteractiveHoverButton>
+                  <InteractiveHoverButton className="self-center mt-4 shadow-lg bg-yellow-50 shadow-yellow-200/50 w-max">开始探索</InteractiveHoverButton>
 
 
 
