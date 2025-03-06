@@ -46,6 +46,12 @@ git push -u origin master
 
 ## 封装动态背景组件 BackgroungVideo
 
-```
-    
-```
+# 2025-3-5
+
+## 调整背景，初步设计首页
+
+# 2025-3-6
+
+## 初步完成首页展示卡片，并添加动态交互
+
+> <img src="/note-doc/img/25-3-6 首页初步完成.png" />
