@@ -27,10 +27,10 @@ const containerVariants = {
 
 const svgVariants = {
     open: {
-        rotate: 180,
+        rotate: -180,
     },
     close: {
-        rotate: 360,
+        rotate: 0,
     }
 }
 
@@ -62,13 +62,15 @@ const Navigation = () => {
         <>
             <motion.nav
                 variants={containerVariants}
-                
+                initial={{
+                    width: "4rem"
+                }}
                 animate={containerControls}
-                className="absolute top-0 left-0 z-50 flex flex-col h-full gap-20 p-5 rounded-lg shadow w-max bg-neutral-800/90 shadow-neutral-600">
+                className="absolute top-0 left-0 z-50 flex flex-col gap-20 p-5 rounded-lg shadow min-h-[600px] h-max w-max bg-neutral-800/90 shadow-neutral-600">
                 <div className='flex flex-row justify-between w-full place-items-center'>
                     
                     <div className='w-16 h-16 rounded-full cursor-pointer'>
-                        <Image src={"/assets/img/sym.png"} alt='logo' width={"64"} height={"64"} />
+                        <Image src={"/assets/img/sym.png"} alt='logo' width={64} height={64} className='transition-all duration-300 hover:scale-110' onClick={() => window.location.href = '/'} />
                     </div>
 
                     <button className='flex p-1 rounded-full ' onClick={() => handleOpen()}>
