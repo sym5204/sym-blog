@@ -1,9 +1,8 @@
-import Footer from "@/components/footer/footer";
-import Nav from "@/components/nav/nav";
-import type { Metadata } from "next";
 import SplashCursor from "@/Animations/SplashCursor/SplashCursor";
-import "./globals.css";
 import Particles from "@/Backgrounds/Particles/Particles";
+import Footer from "@/components/footer/footer";
+import type { Metadata } from "next";
+import "./globals.css";
 
 
 type RootLayoutProps = {
@@ -45,9 +44,9 @@ export default function RootLayout({
 
 
 
-        <div className="flex flex-col w-screen h-screen overflow-hidden">
-          <Nav />
-          <main className="flex flex-col w-full h-full px-4 pt-4 overflow-y-scroll scrollbar-hide md:px-20">
+        <div className="flex flex-col w-full h-screen overflow-hidden">
+          
+          <main className="flex flex-col w-full h-full p-4 pt-4 overflow-y-scroll scrollbar-hide md:px-20 md:pt-16">
             <div className="flex flex-row h-max">
               <div className="flex w-full h-max">
                 {children}

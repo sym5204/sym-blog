@@ -4,7 +4,7 @@ import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-b
 import { ShineBorder } from "@/components/magicui/shine-border"
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"
 import Image from "next/image"
-import "./home.css"
+import "./entry.css"
 
 const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
 { id: 3, label: 'JavaScript' }, { id: 4, label: 'Vue' }, { id: 5, label: 'React' }, { id: 6, label: 'Next.js' },
@@ -12,7 +12,7 @@ const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
 ]
 
 
-const Home = () => {
+const Entery = () => {
   return (
 
     <div className="relative flex flex-col items-center justify-center w-full ">
@@ -60,8 +60,11 @@ const Home = () => {
 
 
                   <AnimatedGradientText className='text-xl hover:cursor-default' >
+                    <p className="mb-2 text-center" style={{ fontFamily: 'math', fontStyle: 'italic' }}>
+                      Welcome, explorer ！！！
+                    </p>
                     <p>
-                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎，勇于探索的旅者，我是诗叶沐，一个热爱前端开发的代码疯子。这个网站是我的虚拟空间，专为记录与分享我的技术探索和岁月点滴而建。无论你是来寻找灵感，还是想一起探讨代码的奥秘，亦或是为灵魂寻找片刻的憩息之地，这里都欢迎你，请尽情探索！！！
+                    &nbsp;&nbsp;&nbsp;&nbsp;欢迎，勇于开拓的旅者，我是诗叶沐，一个热爱前端开发的代码疯子。这个网站是专为记录与分享我的技术探索和岁月点滴而建。无论你是来寻找灵感，还是想一起探讨代码的奥秘，这里都欢迎你，愿此行，终达群星！！！
                     </p>
                   </AnimatedGradientText>
 
@@ -87,4 +90,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default Entery
