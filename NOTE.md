@@ -82,4 +82,8 @@ git push -u origin master
 
 ## 完成侧边栏，并添加动态过渡效果
 
-> 
+# 2025-3-9
+
+## 制作默认缺省组件 EmptyDefault
+
+> <img src="/note-doc/img/25-3-8 制作缺省组件.png" />
