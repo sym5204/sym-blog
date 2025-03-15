@@ -1,27 +1,36 @@
+'use client'
 import { motion } from "framer-motion"
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 interface Props {
     children: React.ReactNode
     name: string
+    href: string
 }
 
+const NavigationLinks = ({ children, name, href }: Props) => {
+    const pathname = usePathname()
+    const isActive = pathname === href
 
-
-
-
-
-
-const NavigationLinks = ({ children, name }: Props) => {
     return (
-        <motion.a
+        <motion.div
             whileHover={{ scale: 1.1 }}
             transition={{ duration: 0.2, type: "spring", damping:15}}
-            
-            href="#" className=" flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-900 stroke-white text-white hover:text-neutral-900 place-items-center gap-3 hover:bg-yellow-100 transition-colors duration-100 overflow-hidden" >
-            
-            {children}
-            <p className="tracking-wide text-inherit overflow-clip whitespace-nowrap">{name}</p>
-        </motion.a>
+        >
+
+            <Link
+                href={href}
+                className={`flex p-1 rounded cursor-pointer stroke-[0.75] hover:stroke-neutral-900 hover:bg-yellow-100 ${
+                    isActive 
+                        ? 'bg-yellow-100 stroke-neutral-900 text-neutral-900 scale-110'
+                        : 'stroke-white text-white hover:text-neutral-900 '
+                } place-items-center gap-3 transition-colors duration-100 overflow-hidden`}
+            >
+                {children}
+                <p className="tracking-wide overflow-clip whitespace-nowrap text-inherit">{name}</p>
+            </Link>
+        </motion.div>
     )
 }
 

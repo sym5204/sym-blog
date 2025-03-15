@@ -52,7 +52,7 @@ const Navigation = () => {
             containerControls.start("close")
             svgControls.start("close")
         }
-    }, [isOpen])
+    }, [isOpen, containerControls, svgControls])
 
     const handleOpen = () => {
         setIsOpen(!isOpen)
@@ -66,14 +66,14 @@ const Navigation = () => {
                     width: "4rem"
                 }}
                 animate={containerControls}
-                className="absolute top-0 left-0 z-50 flex flex-col gap-20 p-5 rounded-lg shadow min-h-[600px] h-max w-max bg-neutral-800/90 shadow-neutral-600">
-                <div className='flex flex-row justify-between w-full place-items-center'>
+                className="relative flex flex-col gap-20 p-5 rounded-lg shadow min-h-[600px] h-max w-max bg-neutral-800/90 shadow-neutral-600">
+                <div className='flex relative flex-row justify-between place-items-center w-full'>
                     
-                    <div className='w-16 h-16 rounded-full cursor-pointer'>
+                    <div className='flex relative justify-center items-center w-16 h-16 rounded-full cursor-pointer'>
                         <Image src={"/assets/img/sym.png"} alt='logo' width={64} height={64} className='transition-all duration-300 hover:scale-110' onClick={() => window.location.href = '/'} />
                     </div>
 
-                    <button className='flex p-1 rounded-full ' onClick={() => handleOpen()}>
+                    <button className='flex p-1 rounded-full' onClick={() => handleOpen()}>
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -97,27 +97,27 @@ const Navigation = () => {
 
                 <div className='flex flex-col gap-3'>
 
-                    <NavigationLinks name='技术探索' >
+                    <NavigationLinks name='技术探索' href='/learning' >
                         <ChartBarIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='岁月随笔' >
+                    <NavigationLinks name='岁月随笔' href='/life' >
                         <BookTextIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='学习链接' >
+                    <NavigationLinks name='学习链接' href='/links'>
                         <LinkIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='个人收藏' >
+                    <NavigationLinks name='个人收藏' href='/collections'>
                         <HeartIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='工坊' >
+                    <NavigationLinks name='工坊' href='/workshop'>
                         <ComponentIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='关于' >
+                    <NavigationLinks name='关于' href='/about'>
                         <User2 className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
