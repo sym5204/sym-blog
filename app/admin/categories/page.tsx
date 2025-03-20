@@ -30,6 +30,9 @@ const CategoryManagement = () => {
       setToken(savedToken);
       setIsLoggedIn(true);
       fetchCategories();
+    } else {
+      setIsLoggedIn(false);
+      router.push('/admin/login');
     }
   }, []);
 
@@ -43,72 +46,18 @@ const CategoryManagement = () => {
     }
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-    
-    try {
-      const response = await axios.post('/api/auth/login', { username, password });
-      const { token } = response.data;
-      
-      localStorage.setItem('authToken', token);
-      setToken(token);
-      setIsLoggedIn(true);
-      fetchCategories();
-    } catch (error: any) {
-      setError(error.response?.data?.error || '登录失败');
-    }
-  };
 
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     setToken('');
     setIsLoggedIn(false);
+    router.push('/admin/login');
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className="max-w-md p-6 mx-auto mt-10 bg-white rounded-lg shadow-md">
-        <h1 className="mb-6 text-2xl font-bold text-center">管理员登录</h1>
-        {error && <div className="p-2 mb-4 text-red-700 bg-red-100 rounded">{error}</div>}
-        
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-700">用户名</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          
-          <div className="mb-6">
-            <label className="block mb-2 text-gray-700">密码</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-          
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-          >
-            登录
-          </button>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div className="container px-4 py-8 mx-auto rounded min-h-[600px]  bg-slate-100">
-      <div className="flex items-center justify-between mb-8 ">
+      <div className="flex justify-between items-center mb-8">
         <h1 className="text-2xl font-bold">分类管理</h1>
         <button
           onClick={handleLogout}

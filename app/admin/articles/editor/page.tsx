@@ -26,15 +26,15 @@ interface Article {
   content: string;
   description: string;
   keywords: string;
-  published: boolean;
-  category: string;
+  isPublished: boolean;
+  categories: Array<string>;
 }
 
 export default function ArticleEditor() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const articleId = searchParams.get('id');
-  
+  const articleId = searchParams?.get('id');
+
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState('');
   const [article, setArticle] = useState<Article>({
@@ -42,8 +42,8 @@ export default function ArticleEditor() {
     content: '',
     description: '',
     keywords: '',
-    published: false,
-    category: '',
+    isPublished: false,
+    categories: [],
   });
   const [error, setError] = useState('');
   const [message, setMessage] = useState('');
@@ -61,7 +61,7 @@ export default function ArticleEditor() {
       setToken(savedToken);
       setIsLoggedIn(true);
       fetchCategories();
-      
+
       if (articleId) {
         fetchArticle(articleId);
       } else {
@@ -101,7 +101,7 @@ export default function ArticleEditor() {
   };
 
   // 安全地更新文章字段
-  const updateArticleField = (field: keyof Article, value: string | boolean) => {
+  const updateArticleField = (field: keyof Article, value: any | boolean) => {
     setArticle(prevState => ({
       ...prevState,
       [field]: value
@@ -116,31 +116,49 @@ export default function ArticleEditor() {
   const handleSaveArticle = async () => {
     setError('');
     setMessage('');
-    
+
     // 表单验证
     if (!article.title.trim()) {
       showAlert('验证失败', '标题不能为空', false);
       return;
     }
-    
+
     if (!article.content.trim()) {
       showAlert('验证失败', '内容不能为空', false);
       return;
     }
-    
-    // 验证分类是否为有效的 ObjectId
-    if (article.category && typeof article.category === 'string') {
-      // 简单验证 ObjectId 格式 (24位十六进制字符串)
-      const isValidId = /^[0-9a-fA-F]{24}$/.test(article.category);
-      if (!isValidId) {
-        showAlert('验证失败', '请选择有效的分类', false);
+
+    // 分类数据验证
+    if (article.categories) {
+      // 类型安全检查：确保始终是数组格式
+      const categoryArray = Array.isArray(article.categories) 
+        ? article.categories 
+        : [];
+
+      // 非空验证：至少选择1个分类
+      if (categoryArray.length === 0) {
+        showAlert('验证失败', '请至少选择一个分类', false);
         return;
       }
+
+      // ID格式验证：检查所有分类ID是否符合MongoDB ObjectId格式
+      const invalidIds = categoryArray.filter(
+        id => !/^[0-9a-f]{24}$/i.test(id)
+      );
+
+      // if (invalidIds.length > 0) {
+      //   showAlert(
+      //     '验证失败',
+      //     `发现无效分类ID：${invalidIds.join(', ')}`, 
+      //     false
+      //   );
+      //   return;
+      // }
     }
-    
+
     try {
       const headers = { Authorization: `Bearer ${token}` };
-      
+
       if (articleId) {
         // 更新现有文章
         await axios.put(`/api/articles/${articleId}`, article, { headers });
@@ -150,7 +168,7 @@ export default function ArticleEditor() {
         await axios.post('/api/articles', article, { headers });
         showAlert('操作成功', '新文章已创建');
       }
-      
+
       // 保存成功后延迟返回列表页
       setTimeout(() => {
         router.push('/admin/articles');
@@ -165,20 +183,20 @@ export default function ArticleEditor() {
       showAlert('操作失败', '请先保存文章', false);
       return;
     }
-    
+
     setError('');
     setMessage('');
-    
+
     try {
       const headers = { Authorization: `Bearer ${token}` };
-      await axios.put(`/api/articles/${articleId}`, 
-        { ...article, published: true }, 
+      await axios.put(`/api/articles/${articleId}`,
+        { ...article, isPublished: true },
         { headers }
       );
-      
-      setArticle({ ...article, published: true });
+
+      setArticle({ ...article, isPublished: true });
       showAlert('操作成功', '文章已发布');
-      
+
       // 发布成功后延迟返回列表页
       setTimeout(() => {
         router.push('/admin/articles');
@@ -195,8 +213,8 @@ export default function ArticleEditor() {
   if (isLoading) {
     return (
       <div className="container p-4 mx-auto">
-        <div className="flex items-center justify-center h-64">
-          <div className="text-xl text-gray-500">加载中...</div>
+        <div className="flex justify-center items-center h-64 bg-slate-100">
+          <div className="text-xl text-gray-800">加载中...</div>
         </div>
       </div>
     );
@@ -204,7 +222,7 @@ export default function ArticleEditor() {
 
   return (
     <div className="container p-4 mx-auto rounded min-h-[600px] bg-slate-100">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">{articleId ? '编辑文章' : '新建文章'}</h1>
         <button
           onClick={() => router.push('/admin/articles')}
@@ -213,10 +231,7 @@ export default function ArticleEditor() {
           返回列表
         </button>
       </div>
-      
-      {error && <div className="p-2 mb-4 text-red-700 bg-red-100 rounded">{error}</div>}
-      {message && <div className="p-2 mb-4 text-green-700 bg-green-100 rounded">{message}</div>}
-      
+
       <div className="p-6 bg-white rounded-lg shadow-md">
         <div className="mb-4">
           <label className="block mb-2 text-gray-700">标题</label>
@@ -224,48 +239,67 @@ export default function ArticleEditor() {
             type="text"
             value={article.title}
             onChange={(e) => updateArticleField('title', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="px-3 py-2 w-full rounded-md border border-gray-300"
             required
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block mb-2 text-gray-700">SEO 描述</label>
           <textarea
             value={article.description}
             onChange={(e) => updateArticleField('description', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="px-3 py-2 w-full rounded-md border border-gray-300"
             rows={2}
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block mb-2 text-gray-700">SEO 关键词 (用逗号分隔)</label>
           <input
             type="text"
             value={article.keywords}
             onChange={(e) => updateArticleField('keywords', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
+            className="px-3 py-2 w-full rounded-md border border-gray-300"
           />
         </div>
-        
+
         <div className="mb-4">
           <label className="block mb-2 text-gray-700">分类</label>
-          <select
-            value={article.category}
-            onChange={(e) => updateArticleField('category', e.target.value)}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md"
-            required
-          >
-            <option value="">请选择分类</option>
-            {categories.map((category) => (
-              <option key={category._id} value={category._id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
+          <div>
+            <button
+              onClick={() => updateArticleField('categories', '')}
+              className="px-2 py-1 mb-2 text-white bg-gray-500 rounded-md hover:bg-gray-600"
+            >
+              清空选择
+            </button>
+            <div className='flex flex-row gap-5 p-4 text-xl'>
+              {categories.map((category) => (
+                <div key={category._id} className="mb-1">
+                  <input
+                    type="checkbox"
+                    id={category._id}
+                    value={category._id}
+                    checked={article.categories.includes(category._id)}
+                    onChange={(e) => {
+                      const currentCategories = Array.isArray(article.categories) ? article.categories : [];
+                      const newCategories = e.target.checked
+                        ? [...currentCategories, category._id]
+                        : currentCategories.filter((id) => id !== category._id);
+                      updateArticleField('categories', newCategories);
+                    }}
+                    className="mr-2"
+                  />
+                  <label htmlFor={category._id} className="text-gray-700">
+                    {category.name}
+                  </label>
+                </div>
+              ))}
+            </div>
+
+          </div>
         </div>
-        
+
         <div className="mb-6">
           <label className="block mb-2 text-gray-700">内容</label>
           <RichTextEditor
@@ -273,7 +307,7 @@ export default function ArticleEditor() {
             onChange={handleContentChange}
           />
         </div>
-        
+
         <div className="flex justify-center space-x-4">
           <button
             onClick={handleSaveArticle}

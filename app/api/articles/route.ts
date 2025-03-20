@@ -6,23 +6,40 @@ import { isValidObjectId } from 'mongoose';
 
 // 获取所有文章
 export async function GET(req: NextRequest) {
-  try {
-    await connectDB();
+/**
+ * 处理GET请求，获取文章列表
+ * 
+ * 此函数首先连接到数据库，然后解析请求URL中的查询参数，包括是否只获取已发布文章和文章分类ID。
+ * 根据这些参数构建查询对象，用于过滤文章列表。
+ * 
+ * @param req - NextRequest对象，包含请求信息
+ */
+try {
+  // 连接到MongoDB数据库
+  await connectDB();
+  
+  // 创建一个URL对象，用于解析请求的URL
+  const url = new URL(req.url);
+  // 检查查询参数中是否包含 'published=true'，如果是则只获取已发布的文章
+  const publishedOnly = url.searchParams.get('published') === 'true';
+  // 从查询参数中获取文章分类的ID
+  const categories = url.searchParams.get('categories');
+  
+  // 初始化一个空的查询对象，用于过滤文章列表
+  const query: any = {};
+  // 如果 'publishedOnly' 为 true，则在查询对象中添加 'published: true' 条件
+  if (publishedOnly) query.published = true;
+  // 如果提供了分类ID
+  if (categories) {
+    // 将分类参数拆分为数组并验证每个ID
+    const categoryIds = categories.split(',').filter(id => isValidObjectId(id.trim()));
     
-    const url = new URL(req.url);
-    const publishedOnly = url.searchParams.get('published') === 'true';
-    const categoryId = url.searchParams.get('category');
-    
-    const query: any = {};
-    if (publishedOnly) query.published = true;
-    if (categoryId) {
-      // 确保 categoryId 是有效的 ObjectId
-      if (isValidObjectId(categoryId)) {
-        query.category = categoryId;
-      } else {
-        console.warn(`无效的分类 ID: ${categoryId}`);
-      }
+    if (categoryIds.length > 0) {
+      query.categories = { $in: categoryIds };
+    } else {
+      console.warn('所有分类ID均无效');
     }
+  }
     
     // 使用 try-catch 包装 populate 操作
     try {
@@ -61,10 +78,28 @@ export async function POST(req: NextRequest) {
     if (!data.content) {
       return NextResponse.json({ error: '内容不能为空' }, { status: 400 });
     }
+
+    // 自动生成slug（基于标题转换）
+    if (data.title) {
+      data.slug = data.title
+        .toLowerCase()
+        .replace(/\s+/g, '-')
+        .replace(/[^\w\-]+/g, '');
+    }
     
     // 验证分类 ID 是否为有效的 ObjectId
-    if (data.category && !isValidObjectId(data.category)) {
-      return NextResponse.json({ error: '无效的分类 ID' }, { status: 400 });
+    // 分类 ID 为数组，需要遍历每个分类 ID
+    if (data.categories && Array.isArray(data.categories)) {
+      for (let i = 0; i < data.categories.length; i++) {
+        const category = data.categories[i];
+        if (typeof category ==='string' &&!isValidObjectId(category)) {
+          // 输出警告信息
+          console.warn(`文章 "${data.title}" 的分类 ID 无效: ${category}`);
+          // 将无效的分类 ID 从数组中移除
+          data.categories.splice(i, 1);
+          i--; // 调整索引以正确遍历数组
+        }
+      }
     }
     
     const newArticle = new Article(data);
@@ -88,4 +123,4 @@ export async function POST(req: NextRequest) {
     
     return NextResponse.json({ error: '服务器错误' }, { status: 500 });
   }
-} 
+}

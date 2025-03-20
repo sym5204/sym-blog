@@ -15,14 +15,14 @@ const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
 const Entery = () => {
   return (
 
-    <div className="relative flex flex-col items-center justify-center w-full ">
+    <div className="flex relative flex-col justify-center items-center w-full">
 
       <CardContainer>
         <CardBody >
           <CardItem>
-            <div className="relative flex overflow-hidden glass-effect rounded-xl" style={{ width: '780px', height: '580px' }}>
+            <div className="flex overflow-hidden relative rounded-xl glass-effect" style={{ width: '780px', height: '580px' }}>
               <ShineBorder shineColor={["#0ea59e", "#22c55e", "#FFBE7B"]} className="bg-green-500" />
-              <div className="head " >
+              <div className="head" >
                 <div className="p-4">
                   <h1 className="flex flex-col pt-8 pl-4 tracking-tighter hover:cursor-default md:text-2xl lg:text-4xl" style={{ fontFamily: 'cursive' }}>
                     <AnimatedGradientText>
@@ -39,16 +39,16 @@ const Entery = () => {
 
               </div>
 
-              <div className="absolute flex p-2 bg-green-500 rounded-full top-1/3 left-10">
-                <Image src="/assets/img/A01.jpg" alt="logo" width={200} height={200} className="z-10 transition-all duration-300 rounded-full hover:scale-110" />
+              <div className="flex absolute left-10 top-1/3 p-2 bg-green-500 rounded-full">
+                <Image src="/assets/img/A01.jpg" alt="logo" width={200} height={200} className="z-10 rounded-full transition-all duration-300 hover:scale-110" />
               </div>
 
-              <div className="absolute bottom-0 flex flex-row w-full p-4" style={{ height: '300px', zIndex: -2 }}>
+              <div className="flex absolute bottom-0 flex-row p-4 w-full" style={{ height: '300px', zIndex: -2 }}>
 
-                <div className="absolute flex flex-row flex-wrap justify-center w-1/3 gap-3 p-4 border-r-2 border-white bottom-4 h-1/2">
+                <div className="flex absolute bottom-4 flex-row flex-wrap gap-3 justify-center p-4 w-1/3 h-1/2 border-r-2 border-white">
                   {
                     skillList.map(item => (
-                      <div key={item.id} className="flex flex-row items-center justify-center px-2 py-1 text-black transition-all duration-300 rounded-full shadow-lg hover:cursor-default hover:text-white hover:bg-sky-600 hover:shadow-cyan-500/50 shadow-yellow-200/50 w-max bg-yellow-50">
+                      <div key={item.id} className="flex flex-row justify-center items-center px-2 py-1 w-max text-black bg-yellow-50 rounded-full shadow-lg transition-all duration-300 hover:cursor-default hover:text-white hover:bg-sky-600 hover:shadow-cyan-500/50 shadow-yellow-200/50">
                         {item.label}
                       </div>
                     ))
@@ -56,7 +56,7 @@ const Entery = () => {
                 </div>
 
 
-                <div className="absolute flex flex-col px-8 py-4 h-max bottom-2 right-4" style={{ width: '60%', fontFamily: 'cursive' }}>
+                <div className="flex absolute bottom-2 right-4 flex-col px-8 py-4 h-max" style={{ width: '60%', fontFamily: 'cursive' }}>
 
 
                   <AnimatedGradientText className='text-xl hover:cursor-default' >
@@ -68,7 +68,7 @@ const Entery = () => {
                     </p>
                   </AnimatedGradientText>
 
-                  <InteractiveHoverButton className="self-center mt-4 shadow-lg bg-yellow-50 shadow-yellow-200/50 w-max" onClick={() => window.location.href = '/about'}>开始探索</InteractiveHoverButton>
+                  <InteractiveHoverButton className="self-center mt-4 w-max bg-yellow-50 shadow-lg shadow-yellow-200/50" onClick={() => window.location.href = '/learning'}>开始探索</InteractiveHoverButton>
 
 
 

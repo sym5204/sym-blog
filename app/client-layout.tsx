@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from 'react';
 import { BaseLayout } from "./layouts/BaseLayout";
 import { AnimatePresence, motion } from "motion/react";
+import { AdminLayout } from "./layouts/AdminLayout";
 
 type ClientLayoutProps = {
   children: React.ReactNode;
@@ -28,12 +29,15 @@ export default function ClientLayout({
     });
   }, [pathname]);
 
-  const isBack = pathHistory.length >= 2 && 
+  const isBack = pathHistory.length >= 2 &&
     pathHistory[pathHistory.length - 2] === pathname;
 
   const isAppRoute = ['/learning', '/life', '/links', '/collections', '/workshop', '/about'].some(route =>
     pathname?.startsWith(route)
   );
+
+  // 检查是否为 /admin 路由，如果是后台管理页面，则使用AdminLayout
+  const isAdminRoute = pathname?.startsWith('/admin');
 
   return (
     <html lang="en">
@@ -59,7 +63,12 @@ export default function ClientLayout({
           <main className="flex overflow-y-scroll flex-col p-4 pt-4 w-full h-full scrollbar-hide md:px-20 md:pt-16">
             <div className="flex flex-row h-max">
               {isAppRoute ? (
-                <AppLayout>{children}</AppLayout>
+
+                isAdminRoute ? (
+                  <AdminLayout> {children}</AdminLayout>
+                ) : (
+                  <AppLayout> {children}</AppLayout>
+                )
               ) : (
                 <AnimatePresence mode='wait'>
                   <motion.div

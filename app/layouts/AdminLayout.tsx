@@ -1,12 +1,12 @@
-import Navigation from '@/components/navigation/Navigation';
+import AdminNav from '@/components/navigation/AdminNav';
 import { AnimatePresence, motion } from 'motion/react';
 
 
-export const AppLayout = ({ children }: { children: React.ReactNode }) => {
+export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
     return (
         <div className="flex relative flex-row gap-10 w-full min-h-full h-max">
             
-            <Navigation />
+            <AdminNav />
             <div className='flex flex-col w-full rounded h-max'>
                 <AnimatePresence mode='wait'>
                     <motion.div

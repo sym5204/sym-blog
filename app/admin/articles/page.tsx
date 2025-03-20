@@ -28,8 +28,8 @@ interface Article {
   content: string;
   description: string;
   keywords: string;
-  published: boolean;
-  category: string | Category;
+  isPublished: boolean;
+  categories: string[];
 }
 
 export default function ArticleManagement() {
@@ -57,6 +57,9 @@ export default function ArticleManagement() {
       setIsLoggedIn(true);
       fetchArticles();
       fetchCategories();
+    } else {
+      setIsLoggedIn(false);
+      router.push('/admin/login');
     }
   }, []);
 
@@ -80,9 +83,10 @@ export default function ArticleManagement() {
   };
 
   // 根据分类ID获取分类名称
-  const getCategoryName = (categoryId: string) => {
-    const category = categories.find(cat => cat._id === categoryId);
-    return category ? category.name : '未分类';
+  const getCategoryNames = (categoryIds: string[]) => {
+    return categoryIds
+      .map(id => categories.find(cat => cat._id === id)?.name || '未知分类')
+      .join(', ');
   };
 
   const showAlert = (title: string, description: string, isSuccess: boolean = true) => {
@@ -92,28 +96,11 @@ export default function ArticleManagement() {
     setAlertOpen(true);
   };
 
-  const handleLogin = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setError('');
-
-    try {
-      const response = await axios.post('/api/auth/login', { username, password });
-      const { token } = response.data;
-
-      localStorage.setItem('authToken', token);
-      setToken(token);
-      setIsLoggedIn(true);
-      fetchArticles();
-      fetchCategories();
-    } catch (error: any) {
-      showAlert('登录失败', error.response?.data?.error || '用户名或密码错误', false);
-    }
-  };
-
   const handleLogout = () => {
     localStorage.removeItem('authToken');
     setToken('');
     setIsLoggedIn(false);
+    router.push('/admin/login');
   };
 
   const openDeleteDialog = (articleId: string | undefined) => {
@@ -148,49 +135,10 @@ export default function ArticleManagement() {
     openDeleteDialog(articleId);
   };
 
-  if (!isLoggedIn) {
-    return (
-      <div className="max-w-md p-6 mx-auto mt-10 bg-white rounded-lg shadow-md">
-        <h1 className="mb-6 text-2xl font-bold text-center">管理员登录</h1>
-        {error && <div className="p-2 mb-4 text-red-700 bg-red-100 rounded">{error}</div>}
-
-        <form onSubmit={handleLogin}>
-          <div className="mb-4">
-            <label className="block mb-2 text-gray-700">用户名</label>
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          <div className="mb-6">
-            <label className="block mb-2 text-gray-700">密码</label>
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border border-gray-300 rounded-md"
-              required
-            />
-          </div>
-
-          <button
-            type="submit"
-            className="w-full px-4 py-2 text-white bg-blue-500 rounded-md hover:bg-blue-600"
-          >
-            登录
-          </button>
-        </form>
-      </div>
-    );
-  }
 
   return (
     <div className="container p-4 mx-auto rounded min-h-[600px] bg-slate-100">
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex justify-between items-center mb-6">
         <h1 className="text-2xl font-bold">文章管理</h1>
         <button
           onClick={handleLogout}
@@ -231,13 +179,13 @@ export default function ArticleManagement() {
                     </td>
                     <td className="px-6 py-4">
                       <div className="max-w-xs text-sm text-center text-gray-500 truncate">
-                        {typeof article.category === 'string'
-                          ? getCategoryName(article.category)
-                          : article.category?.name || '未分类'}
+                        {Array.isArray(article.categories) 
+                          ? getCategoryNames(article.categories as string[])
+                          : '未分类'}
                       </div>
                     </td>
                     <td className="px-6 py-4 text-center whitespace-nowrap">
-                      {article.published ? (
+                      {article.isPublished ? (
                         <span className="px-2 py-1 text-xs text-green-800 bg-green-100 rounded">已发布</span>
                       ) : (
                         <span className="px-2 py-1 text-xs text-yellow-800 bg-yellow-100 rounded">未发布</span>
@@ -297,7 +245,7 @@ export default function ArticleManagement() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter className="flex space-x-2">
-            <AlertDialogCancel className="px-4 py-2 text-gray-700 bg-gray-100 border border-gray-300 rounded-md hover:bg-gray-200">
+            <AlertDialogCancel className="px-4 py-2 text-gray-700 bg-gray-100 rounded-md border border-gray-300 hover:bg-gray-200">
               取消
             </AlertDialogCancel>
             <AlertDialogAction 
@@ -311,4 +259,4 @@ export default function ArticleManagement() {
       </AlertDialog>
     </div>
   );
-} 
+}
