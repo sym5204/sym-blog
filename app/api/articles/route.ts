@@ -44,7 +44,7 @@ try {
     // 使用 try-catch 包装 populate 操作
     try {
       const articles = await Article.find(query)
-        .populate('category', 'name slug')
+        
         .sort({ createdAt: -1 });
       
       return NextResponse.json(articles);

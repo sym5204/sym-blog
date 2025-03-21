@@ -14,11 +14,11 @@ interface MeteorsProps {
 }
 
 export const Meteors = ({
-  number = 20,
+  number = 30,
   minDelay = 0.2,
   maxDelay = 1.2,
-  minDuration = 2,
-  maxDuration = 10,
+  minDuration = 8,
+  maxDuration = 16,
   angle = 215,
   className,
 }: MeteorsProps) => {
@@ -28,9 +28,9 @@ export const Meteors = ({
 
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
-      "--angle": angle + "deg",
+      "--angle": (angle + Math.random()*12) + "deg",
       top: -5,
-      left: `calc(-50% + ${Math.floor(Math.random() * window.innerWidth)}px)`,
+      left: `calc(-10% + ${Math.floor(Math.random() * window.innerWidth)}px)`,
       animationDelay: Math.random() * (maxDelay - minDelay) + minDelay + "s",
       animationDuration:
         Math.floor(Math.random() * (maxDuration - minDuration) + minDuration) +
@@ -47,12 +47,12 @@ export const Meteors = ({
           key={idx}
           style={{ ...style }}
           className={cn(
-            "pointer-events-none absolute size-0.5 rotate-[var(--angle)] animate-meteor rounded-full bg-zinc-500 shadow-[0_0_0_1px_#ffffff10]",
+            "pointer-events-none absolute size-0.5 rotate-[var(--angle)] animate-meteor rounded-full bg-slate-50 shadow-[0_0_0_1px_#ffffff10]",
             className,
           )}
         >
           {/* Meteor Tail */}
-          <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-zinc-500 to-transparent" />
+          <div className="pointer-events-none absolute top-1/2 -z-10 h-px w-[50px] -translate-y-1/2 bg-gradient-to-r from-slate-50 to-transparent" />
         </span>
       ))}
     </>

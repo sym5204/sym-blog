@@ -12,7 +12,7 @@ const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
 ]
 
 
-const Entery = () => {
+const Entry = () => {
   return (
 
     <div className="flex relative flex-col justify-center items-center w-full">
@@ -90,4 +90,4 @@ const Entery = () => {
   )
 }
 
-export default Entery
+export default Entry

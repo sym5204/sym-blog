@@ -1,11 +1,11 @@
 
 
-import Entery from "./entery/page";
+import Entry from "./entry/page";
 
 const Page = () => {
   return (
     <div className="w-full h-full">
-      <Entery/>
+      <Entry/>
     </div>
   )
 }

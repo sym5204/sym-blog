@@ -11,9 +11,9 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
                 <AnimatePresence mode='wait'>
                     <motion.div
                         key={Math.random()}
-                        initial={{ x: 100, opacity: 0 }}
+                        initial={{ x: 0, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: -100, opacity: 0 }}
+                        exit={{ x: 0, opacity: 0 }}
                         transition={{ duration: 0.5 }}
                         className='w-full h-max'
                     >

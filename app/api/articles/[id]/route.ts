@@ -5,13 +5,14 @@ import { authMiddleware } from '@/middleware/auth';
 import { isValidObjectId } from 'mongoose';
 
 // 获取单篇文章
-export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
   try {
     await connectDB();
-    if (!isValidObjectId(params.id)) {
+    const resolvedParams = await params;
+    if (!isValidObjectId(resolvedParams.id)) {
       return NextResponse.json({ error: '无效的文章ID' }, { status: 400 });
     }
-    const article = await Article.findById(params.id);
+    const article = await Article.findById(resolvedParams.id);
 
     if (!article) {
       return NextResponse.json({ error: '文章不存在' }, { status: 404 });
@@ -25,7 +26,8 @@ export async function GET(req: NextRequest, { params }: { params: { id: string }
 }
 
 // 更新文章
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
+  const resolvedParams = await params;
   // 验证身份
   const authError = await authMiddleware(req);
   if (authError) return authError;
@@ -55,12 +57,13 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       }
     }
     // 检查传入的文章ID是否为有效的ObjectId
-    if (!isValidObjectId(params.id)) {
+    const resolvedParams = await params;
+    if (!isValidObjectId(resolvedParams.id)) {
       // 如果ID无效，返回一个包含错误信息的JSON响应，状态码为400
       return NextResponse.json({ error: '无效的文章ID' }, { status: 400 });
     }
     const updatedArticle = await Article.findByIdAndUpdate(
-      params.id,
+      resolvedParams.id,
       {
         $set: data,
       },
@@ -79,17 +82,19 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
 }
 
 // 删除文章
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }): Promise<NextResponse> {
+  const resolvedParams = await params;
   // 验证身份
   const authError = await authMiddleware(req);
   if (authError) return authError;
 
   try {
     await connectDB();
-    if (!isValidObjectId(params.id)) {
+    const resolvedParams = await params;
+    if (!isValidObjectId(resolvedParams.id)) {
       return NextResponse.json({ error: '无效的文章ID' }, { status: 400 });
     }
-    const deletedArticle = await Article.findByIdAndDelete(params.id);
+    const deletedArticle = await Article.findByIdAndDelete(resolvedParams.id);
 
     if (!deletedArticle) {
       return NextResponse.json({ error: '文章不存在' }, { status: 404 });

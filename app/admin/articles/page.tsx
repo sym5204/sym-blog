@@ -50,6 +50,7 @@ export default function ArticleManagement() {
   const [articleToDelete, setArticleToDelete] = useState<string | undefined>(undefined);
 
   useEffect(() => {
+  // 添加router到依赖数组
     // 从localStorage检查令牌
     const savedToken = localStorage.getItem('authToken');
     if (savedToken) {
@@ -61,7 +62,7 @@ export default function ArticleManagement() {
       setIsLoggedIn(false);
       router.push('/admin/login');
     }
-  }, []);
+  }, [router]);
 
   const fetchArticles = async () => {
     try {

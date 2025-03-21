@@ -34,8 +34,6 @@ const CategorySchema: Schema = new Schema(
   { timestamps: true }
 );
 
-// 为slug字段添加唯一索引
-CategorySchema.index({ slug: 1 }, { unique: true });
 
 // 导出Category模型，如果模型已存在则使用现有模型，否则创建新模型
 export default mongoose.models.Category || mongoose.model<ICategory>('Category', CategorySchema);

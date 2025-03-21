@@ -93,7 +93,7 @@ module.exports = {
     					opacity: '1'
     				},
     				'100%': {
-    					transform: 'rotate(var(--angle)) translateX(-500px)',
+    					transform: 'rotate(var(--angle)) translateX(-1400px)',
     					opacity: '0'
     				}
     			},

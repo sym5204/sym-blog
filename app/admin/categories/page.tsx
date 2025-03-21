@@ -24,6 +24,7 @@ const CategoryManagement = () => {
   const [message, setMessage] = useState('');
 
   useEffect(() => {
+  // 添加router到依赖数组
     // 从localStorage检查令牌
     const savedToken = localStorage.getItem('authToken');
     if (savedToken) {
@@ -34,7 +35,7 @@ const CategoryManagement = () => {
       setIsLoggedIn(false);
       router.push('/admin/login');
     }
-  }, []);
+  }, [router]);
 
   const fetchCategories = async () => {
     try {

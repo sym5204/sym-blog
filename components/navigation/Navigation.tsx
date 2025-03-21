@@ -105,7 +105,7 @@ const Navigation = () => {
                         <BookTextIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
-                    <NavigationLinks name='学习链接' href='/links'>
+                    <NavigationLinks name='网站导航' href='/links'>
                         <LinkIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 

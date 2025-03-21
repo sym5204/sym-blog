@@ -10,7 +10,7 @@ if (!MONGODB_URI) {
 }
 
 // 缓存mongoose连接实例,避免重复连接
-let cached = global.mongoose;
+ let cached = global.mongoose ;
 
 // 如果缓存不存在,初始化缓存对象
 if (!cached) {

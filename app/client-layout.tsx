@@ -9,6 +9,7 @@ import { useState, useEffect } from 'react';
 import { BaseLayout } from "./layouts/BaseLayout";
 import { AnimatePresence, motion } from "motion/react";
 import { AdminLayout } from "./layouts/AdminLayout";
+import { Meteors } from "@/components/magicui/meteors";
 
 type ClientLayoutProps = {
   children: React.ReactNode;
@@ -42,7 +43,7 @@ export default function ClientLayout({
   return (
     <html lang="en">
       <body className="relative bg-gray-900" id="particles-js">
-        <div className="hidden md:flex" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -51 }}>
+        {/* <div className="hidden md:flex" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -51 }}>
           <Particles
             particleColors={['#ffffff', '#ffffff']}
             particleCount={200}
@@ -53,7 +54,14 @@ export default function ClientLayout({
             alphaParticles={false}
             disableRotation={false}
           />
+
+        </div> */}
+
+        <div className="overflow-hidden absolute inset-0 w-screen h-screen -z-40 md:flex">
+          <Meteors number={30} className="" />
         </div>
+
+
 
         <div className="hidden absolute inset-0 w-screen h-screen md:flex -z-50">
           <SplashCursor />

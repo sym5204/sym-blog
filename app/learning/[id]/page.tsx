@@ -6,6 +6,7 @@ import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-b
 import connectDB from '@/lib/mongodb';
 import { AnimatePresence, motion } from 'framer-motion';
 import Link from 'next/link';
+import { Router } from 'lucide-react';
 
 
 
@@ -100,12 +101,12 @@ const LearningPage = () => {
     return (
         <div className="container relative px-4 py-8 mx-auto w-full rounded opacity-80 bg-slate-100">
             <div className='flex flex-row justify-end items-center w-full'>
-
-                <InteractiveHoverButton direction='left'>
-                    <Link href={'/learning'}>
+                <Link href={'/learning'}>
+                    <InteractiveHoverButton direction='left'>
                         返回
-                    </Link>
-                </InteractiveHoverButton>
+                    </InteractiveHoverButton>
+                </Link>
+
 
 
             </div>
