@@ -1,90 +1,39 @@
-import React from 'react'
+// pages/introduction.tsx
+'use client'
+import { useState } from 'react';
+import { motion } from 'framer-motion';
+import Image from 'next/image';
 
-import Image from "next/image";
-import { Timeline } from "@/components/ui/timeline";
+const Introduction: React.FC = () => {
+  const [showContent, setShowContent] = useState(false);
 
-const testPage = () => {
-    const data = [
-        {
-          title: "2024",
-          content: (
-            <div>
-              <p className="mb-8 text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
-                Built and launched Aceternity UI and Aceternity UI Pro from scratch
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-              </div>
-            </div>
-          ),
-        },
-        {
-          title: "Early 2023",
-          content: (
-            <div>
-              <p className="mb-8 text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
-                I usually run out of copy, but when I see content this big, I try to
-                integrate lorem ipsum.
-              </p>
-              <p className="mb-8 text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
-                Lorem ipsum is for people who are too lazy to write copy. But we are
-                not. Here are some more example of beautiful designs I built.
-              </p>
-              <div className="grid grid-cols-2 gap-4">
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-              </div>
-            </div>
-          ),
-        },
-        {
-          title: "Changelog",
-          content: (
-            <div>
-              <p className="mb-4 text-xs font-normal text-neutral-800 dark:text-neutral-200 md:text-sm">
-                Deployed 5 new components on Aceternity today
-              </p>
-              <div className="mb-8">
-                <div className="flex gap-2 items-center text-xs text-neutral-700 dark:text-neutral-300 md:text-sm">
-                  ✅ Card grid component
-                </div>
-                <div className="flex gap-2 items-center text-xs text-neutral-700 dark:text-neutral-300 md:text-sm">
-                  ✅ Startup template Aceternity
-                </div>
-                <div className="flex gap-2 items-center text-xs text-neutral-700 dark:text-neutral-300 md:text-sm">
-                  ✅ Random file upload lol
-                </div>
-                <div className="flex gap-2 items-center text-xs text-neutral-700 dark:text-neutral-300 md:text-sm">
-                  ✅ Himesh Reshammiya Music CD
-                </div>
-                <div className="flex gap-2 items-center text-xs text-neutral-700 dark:text-neutral-300 md:text-sm">
-                  ✅ Salman Bhai Fan Club registrations open
-                </div>
-              </div>
-              <div className="grid grid-cols-2 gap-4">
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-                <div className='w-80 h-80 bg-green-500'></div>
-              </div>
-            </div>
-          ),
-        },
-      ];
   return (
-    <>
-      <div className="w-full">
-      <Timeline data={data} />
+    <div className="flex justify-center items-center h-full">
+      <div className="relative w-full h-full">
+        <motion.button
+          initial={{ x: 0, y: 0 }}
+          animate={showContent ? { x: '-50%', y: '-50%' } : { x: 0, y: 0 }}
+          transition={{ duration: 0.5, ease: "linear" }}
+          onClick={() => setShowContent(!showContent)}
+          className="absolute top-1/2 left-1/2 bg-center bg-cover rounded-full transform -translate-x-1/2 -translate-y-1/2 w-50 h-50"
+          
+        >
+          <Image src="/assets/img/A01.jpg" alt="logo" width={200} height={200} className="z-10 rounded-full transition-all duration-300 hover:scale-110" />
+        </motion.button>
+        {showContent && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.3 }}
+            className="mt-24 text-center"
+          >
+            <h1 className="text-3xl font-bold">Welcome to My Page</h1>
+            <p className="mt-4">This is the additional content that will be shown after clicking the avatar.</p>
+          </motion.div>
+        )}
+      </div>
     </div>
-    </>
-  )
-}
+  );
+};
 
-export default testPage
-
-
-
-
-
+export default Introduction;

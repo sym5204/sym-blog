@@ -1,12 +1,10 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import { useParams } from 'next/navigation'
-import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button'
-import connectDB from '@/lib/mongodb';
-import { AnimatePresence, motion } from 'framer-motion';
+import { InteractiveHoverButton } from '@/components/magicui/interactive-hover-button';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
-import { Router } from 'lucide-react';
+import { useParams } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 
 

@@ -1,0 +1,81 @@
+
+.dymanic-icon{
+  ul{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    column-gap: 20px;
+    list-style: none;
+  }
+  li{
+    width: 50px;
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    border-radius: 25px;
+    transition: all .8s;
+    background: linear-gradient(45deg, var(--startColor), var(--endColor));
+    transform-origin: bottom;
+    box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+    cursor: pointer;
+    .orc {
+      visibility: hidden;
+    }
+  }
+
+  li > span {
+    position: absolute;
+    color: white;
+    transform: scale(0);
+    transition: all 0.8s;
+  }
+
+
+  li > svg {
+    color: white;
+    
+    transition: all 0.8s;
+  }
+
+  li:hover {
+    width: 100px;
+    .orc {
+      visibility: visible;
+    }
+  }
+  li:hover > svg {
+    transform: scale(0);
+  }
+
+  li:hover > span {
+    transform: scale(1.25);
+  }
+
+}
+
+.marquee-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.marquee-container::before,
+.marquee-container::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1.5rem;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.marquee-container::before {
+  top: 0;
+  background: linear-gradient(180deg, hsl(var(--background)) 0%, transparent 100%);
+}
+
+.marquee-container::after {
+  bottom: 0;
+  background: linear-gradient(0deg, hsl(var(--background)) 0%, transparent 100%);
+}

@@ -80,7 +80,7 @@ export default function LearningListPage() {
 
     const timeLineData = Object.entries(
         articles.reduce((acc: Record<string, string[]>, article: Article) => {
-            const dateKey = new Date(article.createdAt).toISOString().split('T')[0];
+            const dateKey = new Date(article.createdAt).toISOString().slice(0, 7); // 截取前7位得到YYYY-MM格式
             if (!acc[dateKey]) acc[dateKey] = [];
             acc[dateKey].push(article.title);
             return acc;
@@ -116,7 +116,7 @@ export default function LearningListPage() {
 
 
     return (
-        <div className="container relative px-4 py-8 mx-auto w-full rounded opacity-80 bg-slate-100">
+        <div className="container relative px-4 py-8 mx-auto w-full rounded opacity-90 bg-slate-100">
             <h1 className="mb-8 text-2xl font-bold text-center" style={{ fontFamily: 'cursive' }}>技术探索</h1>
 
             <div className='flex flex-row flex-wrap gap-4 p-4 mb-4 w-full bg-white rounded-lg shadow-md'>

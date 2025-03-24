@@ -1,8 +1,7 @@
-import { NextRequest, NextResponse } from 'next/server';
 import connectDB from '@/lib/mongodb';
 import Article from '@/models/Article';
 import Category from '@/models/Category';
-import { isValidObjectId } from 'mongoose';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
     try {

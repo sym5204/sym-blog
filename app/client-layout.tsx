@@ -1,15 +1,15 @@
 'use client';
 
 import SplashCursor from "@/Animations/SplashCursor/SplashCursor";
-import Particles from "@/Backgrounds/Particles/Particles";
 import Footer from "@/components/footer/footer";
-import { AppLayout } from './layouts/AppLayout';
-import { usePathname } from "next/navigation";
-import { useState, useEffect } from 'react';
-import { BaseLayout } from "./layouts/BaseLayout";
-import { AnimatePresence, motion } from "motion/react";
-import { AdminLayout } from "./layouts/AdminLayout";
 import { Meteors } from "@/components/magicui/meteors";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { AnimatePresence, motion } from "motion/react";
+import { usePathname } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { AdminLayout } from "./layouts/AdminLayout";
+import { AppLayout } from './layouts/AppLayout';
+import { BaseLayout } from "./layouts/BaseLayout";
 
 type ClientLayoutProps = {
   children: React.ReactNode;
@@ -57,8 +57,10 @@ export default function ClientLayout({
 
         </div> */}
 
-        <div className="overflow-hidden absolute inset-0 w-screen h-screen -z-40 md:flex">
-          <Meteors number={30} className="" />
+        <div className="overflow-hidden absolute inset-0 w-screen h-screen -z-50 md:flex">
+          <Meteors number={20} className="" />
+
+          <StarsBackground />
         </div>
 
 

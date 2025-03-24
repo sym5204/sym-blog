@@ -1,5 +1,5 @@
 import AdminNav from '@/components/navigation/AdminNav';
-import { AnimatePresence, motion } from 'motion/react';
+import { motion } from 'motion/react';
 
 
 export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
@@ -8,7 +8,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
             
             <AdminNav />
             <div className='flex flex-col w-full rounded h-max'>
-                <AnimatePresence mode='wait'>
+                
                     <motion.div
                         key={Math.random()}
                         initial={{ x: 0, opacity: 0 }}
@@ -19,7 +19,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
                     >
                         {children}
                     </motion.div>
-                </AnimatePresence>
+                
             </div>
 
         </div>

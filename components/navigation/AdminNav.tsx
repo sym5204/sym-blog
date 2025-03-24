@@ -1,6 +1,6 @@
 'use client'
 import { motion, useAnimationControls } from 'framer-motion'
-import { BookTextIcon, ChartBarIcon, ComponentIcon, HeartIcon, LinkIcon, User2 } from 'lucide-react'
+import { BookTextIcon, ChartBarIcon, ComponentIcon, HeartIcon, ImageIcon, LinkIcon, User2 } from 'lucide-react'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import NavigationLinks from './NavigationLinks'
@@ -103,6 +103,10 @@ const AdminNav = () => {
 
                     <NavigationLinks name='文章管理' href='/admin/articles' >
                         <BookTextIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
+                    </NavigationLinks>
+
+                    <NavigationLinks name='图片管理' href='/admin/images' >
+                        <ImageIcon className='stroke-[0.75] stroke-inherit min-w-8 w-8' />
                     </NavigationLinks>
 
 

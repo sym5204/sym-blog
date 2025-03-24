@@ -1,7 +1,7 @@
 'use client'
 
 import { Timeline } from '@/components/ui/timeline';
-import { AnimatePresence, motion } from 'framer-motion';
+import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -39,7 +39,7 @@ export default function LifePage() {
 
   const timeLineData = Object.entries(
     articles.reduce((acc: Record<string, string[]>, article: Article) => {
-      const dateKey = new Date(article.createdAt).toISOString().split('T')[0];
+      const dateKey = new Date(article.createdAt).toISOString().slice(0, 7); // 截取前7位得到YYYY-MM格式
       if (!acc[dateKey]) acc[dateKey] = [];
       acc[dateKey].push(article.title);
       return acc;
@@ -69,7 +69,7 @@ export default function LifePage() {
   }));
 
   return (
-    <div className="container relative px-4 py-8 mx-auto w-full rounded opacity-80 bg-slate-100">
+    <div className="container relative px-4 py-8 mx-auto w-full rounded opacity-90 bg-slate-100">
       <h1 className="mb-8 text-2xl font-bold text-center" style={{ fontFamily: 'cursive' }}>岁月随笔</h1>
       
       {articles.length === 0 ? (

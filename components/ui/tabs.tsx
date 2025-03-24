@@ -40,7 +40,7 @@ export const Tabs = ({
     <>
       <div
         className={cn(
-          "flex flex-row items-center justify-start [perspective:1000px] relative overflow-auto sm:overflow-visible no-visible-scrollbar max-w-full w-full",
+          "flex overflow-auto relative flex-row justify-start items-center w-full max-w-full [perspective:1000px] sm:overflow-visible no-visible-scrollbar",
           containerClassName
         )}
       >
@@ -62,13 +62,16 @@ export const Tabs = ({
                 layoutId="clickedbutton"
                 transition={{ type: "spring", bounce: 0.3, duration: 0.6 }}
                 className={cn(
-                  "absolute inset-0 bg-gray-200 dark:bg-zinc-800 rounded-full ",
+                  "absolute inset-0 text-white rounded-full",
                   activeTabClassName
                 )}
               />
             )}
 
-            <span className="relative block text-black dark:text-white">
+            <span className={cn(
+              "block relative mx-4",
+              active.value === tab.value && "text-white"
+            )}>
               {tab.title}
             </span>
           </button>
@@ -114,7 +117,7 @@ export const FadeInDiv = ({
           animate={{
             y: isActive(tab) ? [0, 40, 0] : 0,
           }}
-          className={cn("w-full h-full absolute top-0 left-0", className)}
+          className={cn("absolute top-0 left-0 w-full h-max", className)}
         >
           {tab.content}
         </motion.div>

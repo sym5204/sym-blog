@@ -1,4 +1,3 @@
-import EmptyDefault from "@/components/emptyDefault/EmptyDefault"
 import AdminNav from "@/components/navigation/AdminNav"
 
 

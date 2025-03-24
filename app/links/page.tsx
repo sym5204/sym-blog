@@ -78,7 +78,7 @@ const navData = [
 const Links = () => {
     return (
         <>
-            <div className="flex relative flex-col p-10 w-full min-h-full rounded h-max bg-slate-100/80">
+            <div className="flex relative flex-col p-10 w-full min-h-full rounded h-max bg-slate-100/90">
 
                 {navData.map((category) => (
                     <div key={category.id}>
@@ -98,7 +98,7 @@ const Links = () => {
                                         borderWidth={2}
                                     />
                                     <Link
-                                        className="p-4 w-full"
+                                        className="flex flex-row justify-center items-center p-4 w-full text-center"
                                         href={link.path}
                                         target="_blank"
                                         rel="noopener noreferrer"

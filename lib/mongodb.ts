@@ -31,6 +31,10 @@ async function connectDB() {
   if (!cached.promise) {
     const opts = {
       bufferCommands: false, // 禁用缓存命令
+      // 使用新的URL解析器，确保正确解析MongoDB连接字符串
+      useNewUrlParser: true,
+      // 使用统一的拓扑结构，优化服务器发现和监控
+      useUnifiedTopology: true,
     };
 
     // 创建连接并缓存Promise
