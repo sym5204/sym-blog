@@ -3,8 +3,9 @@ import { AnimatedGradientText } from "@/components/magicui/animated-gradient-tex
 import { InteractiveHoverButton } from "@/components/magicui/interactive-hover-button"
 import { ShineBorder } from "@/components/magicui/shine-border"
 import { CardBody, CardContainer, CardItem } from "@/components/ui/3d-card"
-import Image from "next/image"
+
 import "./entry.css"
+import { Image } from "antd"
 
 const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
 { id: 3, label: 'JavaScript' }, { id: 4, label: 'Vue' }, { id: 5, label: 'React' }, { id: 6, label: 'Next.js' },
@@ -39,8 +40,8 @@ const Entry = () => {
 
               </div>
 
-              <div className="flex absolute left-10 top-1/3 p-2 bg-green-500 rounded-full">
-                <Image src="/assets/img/A01.jpg" alt="logo" width={200} height={200} className="z-10 rounded-full transition-all duration-300 hover:scale-110" />
+              <div className="flex absolute left-10 top-1/3 z-10 p-2 bg-green-500 rounded-full">
+                <Image src="/assets/img/A01.jpg" preview= {false} alt="诗叶沐" width={200} height={200} className="z-10 rounded-full transition-all duration-300 hover:scale-110" />
               </div>
 
               <div className="flex absolute bottom-0 flex-row p-4 w-full" style={{ height: '300px', zIndex: -2 }}>

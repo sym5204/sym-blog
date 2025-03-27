@@ -40,6 +40,9 @@ async function connectDB() {
     // 创建连接并缓存Promise
     cached.promise = mongoose.connect(MONGODB_URI!, opts).then((mongoose) => {
       return mongoose;
+    }).catch((error) => {
+      console.error('MongoDB连接失败:', error);
+      throw new Error('数据库连接异常: ' + error.message);
     });
   }
   

@@ -1,523 +1,22 @@
-'use client'
+
 import { ShineBorder } from "@/components/magicui/shine-border"
 import { Separator } from "@radix-ui/react-separator"
-import { motion } from "framer-motion"
-import { GraduationCap, Mail, MapPin, Mars, Move, Phone, UserRound } from "lucide-react"
-import Image from "next/image"
-import { Image as Image2 } from "antd"
+
+import { Metadata } from "next"
+import {Image} from "antd"
 import Link from "next/link"
-import { useEffect, useState } from "react"
 import './about.css'
-import { StickyScroll } from "@/components/ui/sticky-scroll-reveal"
-import { Marquee } from "@/components/magicui/marquee"
-import { TextAnimate } from "@/components/magicui/text-animate"
-
-const skills = [
-  { id: 1, content: '熟悉前端基础 HTML CSS ES6+ JS TS 语法。' },
-  { id: 2, content: '熟悉 Vue2 Vue3 全家桶，熟悉 ElementPlus VantUI ，熟悉 Vue 原理' },
-  { id: 3, content: '熟悉 Next.js、Nuxt.js 等服务端框架，熟悉SEO，用过 Mongodb MySQL PgSql' },
-  { id: 7, content: '熟悉 React 和 Hooks 语法，熟悉 AntD' },
-  { id: 4, content: '熟悉 Java ，用过SpringBoot 框架进行项目开发' },
-  { id: 5, content: '熟悉 ApiFox、 Postman ，能熟练运用进行API接口测试' },
-  { id: 6, content: '熟悉计算机网络基础知识，理解网络通信原理' },
-  { id: 8, content: '熟悉 Git 相关知识，使用 git 相关操作进行协同开发' }
-]
-
-const skillList = [{ id: 1, label: 'HTML' }, { id: 2, label: 'CSS' },
-{ id: 3, label: 'JavaScript' }, { id: 4, label: 'Vue' }, { id: 5, label: 'React' }, { id: 6, label: 'Next.js' },
-{ id: 7, label: 'Nuxt.js' }, { id: 8, label: 'Java' }, { id: 9, label: 'MySql' }, { id: 10, label: 'MongoDB' }, { id: 11, label: 'TypeScript' }
-]
+import MotionBox1 from "./motionbox1"
+import MotionBox2 from "./motionbox2"
+import MotionBox3 from "./motionbox3"
+import MotionBox4 from "./motionbox4"
 
 
-const workExperience = [{ id: 1, content: '2024-7 至 2025-2 ，就职于 广州云喵科技公司 ，担任 开发工程师 一职，经手项目有【运动喵系统】、【某科技官网开发】、【某政府“百千万工程”数据可视化平台】、【低代码平台组件开发】等' }
-
-]
-
-
-const project01 = [
-  {
-    title: "某科技官网开发",
-    description: (
-      <div className="cursor-default">
-
-        <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-          这是一个关于某科技公司的官网开发项目。整个项目分为 前端网页内容展示 与 后台网站内容管理。主要包含 内容资讯管理、公司风采介绍、消息推送等功能。我主要负责从 0 开发，到项目部署上线之前。
-        </TextAnimate>
-
-      </div>
-    ),
-    content: (
-
-      <div className="flex justify-center items-center w-full h-full text-white">
-        <Image2
-          src="/assets/img/tx01.png"
-          width={300}
-          className="object-cover w-full h-full"
-          alt="linear board demo"
-        />
-      </div>
-    ),
-  },
-  {
-    title: "技术栈",
-    description:
-      (
-        <div>
-          <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                公司自研低代码平台
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Vue2
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                PgSql
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Css
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                JavaStript
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                ......
-              </TextAnimate>
-            </li>
-          </ul>
-        </div>
-      ),
-    content: (
-      <div className="flex flex-col h-full w-full gap-5 justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] cursor-default text-white">
-        <h1 className="w-full text-xl text-center">技术栈</h1>
-        <div className="flex flex-row justify-around">
-          <span>公司自研低代码平台</span>
-          <span>Vue2</span>
-        </div>
-        <div className="flex flex-row justify-around">
-          <span>PgSql</span>
-          <span>Css</span>
-          <span>JavaStript</span>
-        </div>
-        <div className="w-full text-center">......</div>
-      </div>
-    ),
-  },
-  {
-    title: "项目职责",
-    description: (
-      <div>
-        <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              作为项目主要负责人，根据客户的需求清单进行评审、系统设计、代码走查、项目管理、与客户及时沟通处理需求反馈等工作
-            </TextAnimate>
-
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              基于公司自研的低代码平台，设计网页后台管理系统，进行页面内容的管理，包括内容管理、图片管理、视频管理、文件管理等
-            </TextAnimate>
-
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              基于公司自研的低代码平台，根据客户提供的设计稿，进行页面内容的开发，包括响应式页面布局、页面样式、页面交互等
-            </TextAnimate>
-
-
-          </li>
-
-        </ul>
-      </div>
-    ),
-    content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        <Image2.PreviewGroup
-          items={[
-            '/assets/img/tx02.png',
-            '/assets/img/tx03.png',
-            '/assets/img/tx04.png'
-          ]}
-        >
-          <Image2
-            src="/assets/img/tx02.png"
-            width={300}
-            className="object-cover w-full h-full"
-          />
-        </Image2.PreviewGroup>
-      </div>
-    ),
-  }
-];
-
-const project02 = [
-  {
-    title: "大屏数据可视化平台",
-    description: (
-      <div className="cursor-default">
-
-        <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-
-          这是一个关于大屏数据可视化平台开发项目，服务于某地级市政府。整个项目分为 前端大屏展示 与 后台数据上报管理。主要包含 数据收集、企业管理、群众上报、消息推送等功能。我主要负责大屏数据可视化数据的绑定与后台对应的数据处理业务逻辑，以及地图标注点的展示与交互事件等。
-        </TextAnimate>
-      </div>
-    ),
-    content: (
-
-      <div className="flex justify-center items-center w-full h-full text-white">
-        <Image2
-          src="/assets/img/juntang01.png"
-          width={300}
-          className="object-cover w-full h-full"
-          alt="linear board demo"
-        />
-      </div>
-    ),
-  },
-  {
-    title: "技术栈",
-    description:
-      (
-        <div>
-          <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                公司自研低代码平台
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Vue2
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                PgSql
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Css
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Element-UI
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Echarts
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                JavaStript
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                ......
-              </TextAnimate>
-            </li>
-          </ul>
-        </div>
-      ),
-    content: (
-      <div className="flex flex-col h-full w-full gap-5 justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] cursor-default text-white">
-        <h1 className="w-full text-xl text-center">技术栈</h1>
-        <div className="flex flex-row justify-around">
-          <span>公司自研低代码平台</span>
-          <span>Vue2</span>
-        </div>
-        <div className="flex flex-row justify-around">
-          <span>PgSql</span>
-          <span>Css</span>
-          <span>JavaStript</span>
-        </div>
-        <div className="flex flex-row justify-around">
-          <span>Echarts</span>
-          <span>Element-UI</span>
-        </div>
-        <div className="w-full text-center">......</div>
-      </div>
-    ),
-  },
-  {
-    title: "项目职责",
-    description: (
-      <div>
-        <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              作为项目开发工程师，根据技术总监的要求，完成项目需求的开发与测试，参与项目问题的探讨与解决。
-            </TextAnimate>
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              基于公司自研的低代码平台，根据项目需求清单，对各种数据进行数据表设计与存储，实现后台的数据处理业务逻辑。
-            </TextAnimate>
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              基于公司自研的低代码平台，根据技术总监的大型数据可视化模板，对页面进行二次开发与调整，包括地图标注点的展示与交互事件、展示数据指标的科技风格样式等。
-            </TextAnimate>
-
-          </li>
-
-        </ul>
-      </div>
-    ),
-    content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        <Image2.PreviewGroup
-          items={[
-            '/assets/img/juntang02.png',
-            '/assets/img/juntang03.png'
-
-          ]}
-        >
-          <Image2
-            src="/assets/img/juntang02.png"
-            width={300}
-            className="object-cover w-full h-full"
-          />
-        </Image2.PreviewGroup>
-      </div>
-    ),
-  }
-];
-
-const project03 = [
-  {
-    title: "企业人力资源管理系统",
-    description: (
-      <div className="cursor-default">
-
-        <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-          这是一个企业人力资源管理系统开发项目，作为本人毕设检验修学成果。整个项目主要包含 员工管理、部门管理、权限管理、薪资管理、考勤管理、请假管理等功能。
-        </TextAnimate>
-      </div>
-    ),
-    content: (
-
-      <div className="flex justify-center items-center w-full h-full text-white">
-        <Image2
-          src="/assets/img/hr02.png"
-          width={300}
-          className="object-cover w-full h-full"
-          alt="linear board demo"
-        />
-      </div>
-    ),
-  },
-  {
-    title: "技术栈",
-    description:
-      (
-        <div>
-          <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Java
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Vue2
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                MySql
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Css
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Element-UI
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                Echarts
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                JavaStript
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                SpringBoot
-              </TextAnimate>
-            </li>
-            <li className="hover:text-[#df4ba1] transition-all duration-300">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                ......
-              </TextAnimate>
-            </li>
-          </ul>
-        </div>
-      ),
-    content: (
-      <div className="flex flex-col h-full w-full gap-5 justify-center bg-[linear-gradient(to_bottom_right,var(--cyan-500),var(--emerald-500))] cursor-default text-white">
-        <h1 className="w-full text-xl text-center">技术栈</h1>
-        <div className="flex flex-row justify-around">
-          <span>Java</span>
-          <span>Vue2</span>
-        </div>
-        <div className="flex flex-row justify-around">
-          <span>MySql</span>
-          <span>SpringBoot</span>
-          <span>JavaStript</span>
-        </div>
-        <div className="flex flex-row justify-around">
-          <span>Echarts</span>
-          <span>Element-UI</span>
-        </div>
-        <div className="w-full text-center">......</div>
-      </div>
-    ),
-  },
-  {
-    title: "项目职责",
-    description: (
-      <div>
-        <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              作为全栈开发工程师，根据软件工程专业的毕设要求，进行项目管理、项目开发、项目测试、项目部署等工作。
-            </TextAnimate>
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              后端使用 SpringBoot + MyBatis + MySql 进行开发，实现了用户登录、部门管理、员工管理、权限管理、薪资管理、考勤管理、请假管理等功能。
-            </TextAnimate>
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              前端使用 Vue2 + Element-UI + Echarts 进行开发，实现了简约清新的界面风格。
-            </TextAnimate>
-          </li>
-
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              项目采用前后端分离的开发模式，实现了前后端数据的交互与传输，利用 Apifox 进行 API 接口测试与调试。
-            </TextAnimate>
-          </li>
-
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              整个项目开发使用 Git，远程仓库放在 Gitee 上。
-            </TextAnimate>
-
-          </li>
-
-          <li className="transition-all duration-300">
-            <Link href={'https://gitee.com/lms5204/hrms.git'} target="blank" className="mt-4 text-sky-500 hover:text-sky-500">
-              <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-                https://gitee.com/lms5204/hrms.git
-              </TextAnimate>
-            </Link>
-
-          </li>
-
-        </ul>
-      </div>
-    ),
-    content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        
-          <Image2
-            src="/assets/img/hr02.png"
-            width={300}
-            className="object-cover w-full h-full"
-          />
-      </div>
-    ),
-  },
-  {
-    title: "功能模块",
-    description: (
-      <div>
-        <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              登录模块：用户登录、退出登录、修改密码等功能。后端设置 JWT ，前端 Axios 拦截认证，实现用户的安全登录。
-            </TextAnimate>
-
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              权限管理：后端基于 RBAC 模型，实现用户权限的业务逻辑处理。前端则是配置前置路由守卫，根据用户权限动态渲染用户的权限页面。
-            </TextAnimate>
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              考勤管理：后端是普通的增删改查，前端则是利用高德地图API进行定位打卡考勤。
-            </TextAnimate>
-          </li>
-          <li className="hover:text-[#f48511] transition-all duration-300">
-            <TextAnimate animation="blurInUp" by="character" delay={0.5}>
-              薪资管理：后端结合考勤管理部分，实现薪资的自动计算处理逻辑，前端使用 Element UI 进行薪资详情展示。
-            </TextAnimate>
-          </li>
-
-        </ul>
-      </div>
-    ),
-    content: (
-      <div className="flex h-full w-full items-center justify-center bg-[linear-gradient(to_bottom_right,var(--orange-500),var(--yellow-500))] text-white">
-        <Image2.PreviewGroup
-          items={[
-            '/assets/img/hr01.png',
-            '/assets/img/hr03.png',
-            '/assets/img/hr04.png',
-            '/assets/img/hr05.png',
-            '/assets/img/hr06.png',
-            '/assets/img/hr07.png',
-            '/assets/img/hr08.png',
-            '/assets/img/hr-10.png',
-            '/assets/img/hr09.png',
-            '/assets/img/hr09-1.png',
-            
-          ]}
-        >
-          <Image2
-            src="/assets/img/hr01.png"
-            width={300}
-            className="object-cover w-full h-full"
-          />
-        </Image2.PreviewGroup>
-      </div>
-    ),
-  }
-];
-
-
+export const metadata: Metadata = {
+  title: '关于',
+  description: "关于诗叶沐，一些基本信息以及个人经历和专业技能等。",
+  keywords: "诗叶沐, 个人博客, 博客, 网站, blog, next.js, react, typescript, 技术, 生活, 感悟",
+};
 
 
 const About = () => {
@@ -534,85 +33,17 @@ const About = () => {
                 className="bg-green-500 transition-all duration-300 hover:scale-110"
                 borderWidth={3}
               />
-              <Image src="/assets/img/A01.jpg" alt="logo" width={120} height={120} className="flex rounded-full transition-all duration-300 hover:scale-110" />
+              <Image src="/assets/img/A01.jpg" preview={ false }  alt="logo" width={120} height={120} className="flex rounded-full transition-all duration-300 hover:scale-110" />
             </div>
           </div>
 
-
-
           <Separator orientation={'horizontal'} className="h-[1px] bg-black  rounded" />
 
-          <div className="flex flex-col gap-1 cursor-default">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <UserRound className="mr-2" />
-              <span>姓名：</span>
-              <span>诗叶沐</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-
-              <Mars className="mr-2" />
-              <span>性别：</span>
-              <span>男</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <MapPin className="mr-2" />
-              <span>住址：</span>
-              <span>广东 广州</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <GraduationCap className="mr-2" />
-              <span>学历：</span>
-              <span>2024 本科</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <Move className="mr-2" />
-              <span>专业：</span>
-              <span>软件工程</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <Phone className="mr-2" />
-              <span>电话：</span>
-              <span>13268077628</span>
-            </motion.div>
-
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              transition={{ duration: 0.3, type: "spring", damping: 10 }}
-              className="flex flex-row items-center text-xl" style={{ fontFamily: 'cursive' }}>
-              <Mail className="mr-2" />
-              <span>邮箱：</span>
-              <span>sym5204@163.com</span>
-            </motion.div>
-
-          </div>
+          <MotionBox1 />
 
           <Separator orientation={'horizontal'} className=" h-[1px] bg-black  rounded" />
 
-          <div className="flex flex-col gap-1 dymanic-icon">
+          <div className="flex flex-col gap-1 mb-20 dymanic-icon">
             <ul className="">
               <li className=" py-[10px]" style={{
                 '--startColor': '#86efac',
@@ -622,7 +53,7 @@ const About = () => {
                   viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1584" width="30" height="30"><path d="M860.605629 794.818297c62.708204-46.846958 98.367355-114.1232 98.367355-186.606025 0-124.932384-107.687628-228.428549-246.699682-244.213048C694.076872 220.944088 555.24799 113.231901 388.674207 113.231901c-179.531909 0-325.59352 126.529765-325.59352 282.053887 0 83.857896 41.801035 161.656797 115.204835 215.374232-4.007267 17.577331-18.09717 54.55757-33.920554 88.097454-5.649674 11.969613-2.604314 26.240641 7.435343 34.864042 5.481851 4.711302 12.313443 7.104815 19.174712 7.104815 5.701862 0 11.423167-1.656733 16.407692-5.008061 43.098587-28.994358 97.121991-61.827137 114.845655-68.413136 28.04166 6.659677 57.092299 10.037611 86.445838 10.037611 4.737908 0 9.487072-0.106424 14.228049-0.283456 34.393321 102.412484 143.480832 177.460738 272.38876 177.460738 25.082258 0 49.906643-2.834558 73.892941-8.425903 15.937994 6.405897 60.865229 33.805944 96.594989 57.83522 4.983501 3.351328 10.709923 5.008061 16.411785 5.008061 6.860245 0 13.69286-2.393513 19.174712-7.104815 10.039657-8.627495 13.0799-22.899546 7.430226-34.868135C876.128161 840.123133 864.618013 810.354132 860.605629 794.818297zM388.674207 618.510826c-26.480094 0-52.621475-3.240811-77.698616-9.637498-8.704243-2.219551-20.735253-5.278213-78.948073 28.728298 8.795317-29.173436 10.527774-54.349839-9.790994-67.964928-63.757093-42.723034-100.32494-106.271372-100.32494-174.348863 0-123.085316 119.667473-223.224014 266.762623-223.224014 133.450385 0 244.903779 81.280188 263.931135 190.632735-145.854902 10.06831-260.996293 116.333542-260.996293 245.51674 0 3.439332 0.103354 6.858198 0.265036 10.263761C390.806777 618.486266 389.739469 618.510826 388.674207 618.510826zM815.865659 754.429425c-17.149589 11.485589-18.159592 30.708396-12.754488 53.204759-31.210839-17.527189-45.367257-21.324678-53.827953-21.324678-3.471055 0-5.984295 0.636496-8.320503 1.235131-21.185508 5.405103-43.284829 8.143471-65.671699 8.143471-123.985826 0-224.852094-84.099397-224.852094-187.476859 0-103.374392 100.866269-187.474812 224.852094-187.474812s224.852094 84.099397 224.852094 187.474812C900.142088 665.24522 869.420389 718.541053 815.865659 754.429425z" fill="#ffffff" p-id="1585"></path><path d="M246.388597 322.556347a39.957 36.191 0 1 0 81.776492 0 39.957 36.191 0 1 0-81.776492 0Z" fill="#ffffff" p-id="1586"></path><path d="M458.879152 322.556347a39.957 36.191 0 1 0 81.776492 0 39.957 36.191 0 1 0-81.776492 0Z" fill="#ffffff" p-id="1587"></path><path d="M566.159504 530.367323a32.066 29.044 0 1 0 65.626673 0 32.066 29.044 0 1 0-65.626673 0Z" fill="#ffffff" p-id="1588"></path><path d="M729.48429 530.367323a32.066 29.044 0 1 0 65.626673 0 32.066 29.044 0 1 0-65.626673 0Z" fill="#ffffff" p-id="1589"></path></svg>
                 <span>微信</span>
 
-                <Image src="/assets/img/wechat-orc.jpg" alt="wechat" width={100} height={100} className=" orc rounded flex absolute top-[60px] transition-all duration-800" />
+                <Image  src="/assets/img/wechat-orc.jpg" preview= {false} alt="wechat" width={100} height={100} className=" orc rounded flex absolute top-[60px] transition-all duration-800" />
 
               </li>
 
@@ -652,7 +83,7 @@ const About = () => {
 
                 <span>QQ</span>
 
-                <Image src="/assets/img/qq-orc.jpg" alt="QQ" width={100} height={100} className=" orc rounded flex absolute top-[60px] transition-all duration-800" />
+                <Image src="/assets/img/qq-orc.jpg" preview={ false } alt="QQ" width={100} height={100} className=" orc rounded flex absolute top-[60px] transition-all duration-800" />
 
               </li>
 
@@ -662,77 +93,18 @@ const About = () => {
 
         </div>
 
-        <div className="flex flex-col flex-1 gap-5 my-5 mb-10 ml-10">
+        <div className="flex flex-col flex-1 gap-5 pb-10 my-5 ml-10">
           <div className="flex flex-col p-5 w-full rounded shadow-md bg-slate-100/90">
-            <div className="w-full">
-              <h1 className="text-xl">专业技能</h1>
-              <div className="flex flex-row gap-4 justify-between items-center w-full">
-                <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-                  {skills?.map(skill => {
-                    return (
-                      <motion.li
-                        key={skill.id}
-                        whileHover={{ x: 12, color: '#378fee  ' }}
-                        transition={{ duration: 0.3, }}
-                      >
-                        <TextAnimate animation="blurInUp" by="character" once delay={0.5}>
-                          {skill.content}
-                        </TextAnimate>
-
-                      </motion.li>
-                    )
-                  })}
-                </ul>
-
-                <div className=" relative w-[120px] rounded h-[240px] bg-slate-100 overflow-hidden cursor-default">
-                  <Marquee
-                    pauseOnHover vertical
-                    className="flex flex-col items-center [--duration:20s]">
-                    {skillList?.map(skill => {
-                      return (
-                        <div key={skill.id} className="w-[100px] px-4 py-2 flex flex-row justify-center items-center bg-gradient-to-r from-[#86efac] to-[#16a34a] rounded-full text-white  text-center">
-                          {skill.label}
-                        </div>
-                      )
-                    })}
-                  </Marquee>
-                  <div className="absolute inset-x-0 top-0 bg-gradient-to-b pointer-events-none h-[20px] from-background"></div>
-                  <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t pointer-events-none h-[20px] from-background"></div>
-                </div>
-              </div>
-
-            </div>
-            <div>
-              <h1 className="text-xl">工作经历</h1>
-              <ul className="flex flex-col gap-2 p-4 list-disc cursor-default">
-                {workExperience?.map(we => {
-                  return (
-                    <motion.li
-                      key={we.id}
-                      whileHover={{ x: 12, color: '#378fee  ' }}
-                      transition={{ duration: 0.3, }}
-                    >
-                      <TextAnimate animation="blurInUp" by="character" once delay={0.5}>
-                        {we.content}
-                      </TextAnimate>
-                    </motion.li>
-                  )
-                })}
-              </ul>
-            </div>
+            
+            <MotionBox2 />
+            <MotionBox3 />
+            
+            
           </div>
           <div>
             <h1 className="p-4 mt-2 text-xl">项目经验</h1>
           </div>
-          <div className="py-4 w-full">
-            <StickyScroll content={project01} />
-          </div>
-          <div className="py-4 w-full">
-            <StickyScroll content={project02} />
-          </div>
-          <div className="py-4 w-full">
-            <StickyScroll content={project03} />
-          </div>
+          <MotionBox4/>
         </div>
 
       </div>

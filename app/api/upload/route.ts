@@ -6,6 +6,14 @@ import Image from '@/models/Image';
 import sharp from 'sharp';
 
 // POST 上传图片
+export const config = {
+  api: {
+    bodyParser: {
+      sizeLimit: '100mb'
+    }
+  }
+};
+
 export const POST = async (req: NextRequest) => {
   const form = await req.formData();
   const file = form.get('file') as File;

@@ -8,8 +8,8 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const { username, password } = await req.json();
     
-    // 硬编码检查用户名和密码
-    if (username === 'sym' && password === 'sym5204') {
+    // 硬编码检查用户名和密码，我这里是为了方便操作，因为这个个人网站也只有我一个人打理，所以使用了硬编码，安全起见还是建议使用数据库存储用户信息，并且使用加密算法存储密码
+    if (username === '你的用户名' && password === '密码') {
       // 查找或创建用户
       let user = await User.findOne({ username });
       

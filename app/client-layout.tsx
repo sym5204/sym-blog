@@ -10,14 +10,24 @@ import { useEffect, useState } from 'react';
 import { AdminLayout } from "./layouts/AdminLayout";
 import { AppLayout } from './layouts/AppLayout';
 import { BaseLayout } from "./layouts/BaseLayout";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: {
+    default: '诗叶沐',
+    template: '%s - 诗叶沐', // 子页面的标题会自动替换 %s
+  },
+  description: "诗叶沐的个人博客，一个用于分享技术、生活和感悟的网站。",
+  keywords: "诗叶沐, 个人博客, 博客, 网站, blog, next.js, react, typescript, 技术, 生活, 感悟",
+};
 
 type ClientLayoutProps = {
   children: React.ReactNode;
 };
 
 export default function ClientLayout({
-  children,
-}: Readonly<ClientLayoutProps>) {
+  children
+}:  ClientLayoutProps) {
   const pathname = usePathname();
   const [pathHistory, setPathHistory] = useState<string[]>([]);
 
@@ -42,20 +52,9 @@ export default function ClientLayout({
 
   return (
     <html lang="en">
-      <body className="relative bg-gray-900" id="particles-js">
-        {/* <div className="hidden md:flex" style={{ width: '100%', height: '100%', position: 'absolute', zIndex: -51 }}>
-          <Particles
-            particleColors={['#ffffff', '#ffffff']}
-            particleCount={200}
-            particleSpread={10}
-            speed={0.1}
-            particleBaseSize={100}
-            moveParticlesOnHover={false}
-            alphaParticles={false}
-            disableRotation={false}
-          />
 
-        </div> */}
+      <body className="relative bg-gray-900" id="particles-js">
+
 
         <div className="overflow-hidden absolute inset-0 w-screen h-screen -z-50 md:flex">
           <Meteors number={20} className="" />
