@@ -20,6 +20,7 @@ export async function GET(req: NextRequest) {
         };
 
         const articles = await Article.find(query)
+            .select('title categories createdAt')
             .sort({ createdAt: -1 })
             .populate('categories', 'name');
 

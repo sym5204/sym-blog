@@ -124,7 +124,6 @@ export default function LearningList() {
       <h1 className="mb-8 text-2xl font-bold text-center" style={{ fontFamily: 'cursive' }}>技术探索</h1>
 
       <div className='flex flex-row flex-wrap gap-4 p-4 mb-4 w-full bg-white rounded-lg shadow-md'>
-        {/* 这里是分类筛选区域，显示除了 “岁月随笔” 以外的所有分类 */}
         {categories.map((category: any) => (
           <label
             key={category._id}

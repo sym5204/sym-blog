@@ -16,7 +16,7 @@ export const AppLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex relative flex-row gap-10 w-full min-h-full h-max">
             
             <Navigation />
-            <div className='w-full rounded'>
+            <div className='flex flex-1 min-w-[500px] rounded'>
                 
                     <motion.div
                         key={Math.random()}

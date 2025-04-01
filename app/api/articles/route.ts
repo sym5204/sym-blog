@@ -79,13 +79,25 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: '内容不能为空' }, { status: 400 });
     }
 
-    // 自动生成slug（基于标题转换）
-    if (data.title) {
-      data.slug = data.title
+    // 增强版slug生成逻辑
+    const generateSlug = (text: string) => {
+      let slug = text
         .toLowerCase()
         .replace(/\s+/g, '-')
-        .replace(/[^\w\-]+/g, '');
-    }
+        .replace(/[^\w\u4e00-\u9fa5\-]+/g, '') // 允许中文字符
+        .replace(/\-\-+/g, '-')  // 替换多个连字符为单个
+        .trim();
+
+      // 回退机制：如果处理后为空则生成随机slug
+      if (!slug) {
+        const timestamp = Date.now();
+        const randomStr = Math.random().toString(36).substring(2, 6);
+        slug = `post-${timestamp}-${randomStr}`;
+      }
+      return slug;
+    };
+
+    data.slug = data.title ? generateSlug(data.title) : generateSlug('untitled-post');
     
     // 验证分类 ID 是否为有效的 ObjectId
     // 分类 ID 为数组，需要遍历每个分类 ID

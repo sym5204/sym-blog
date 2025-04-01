@@ -7,7 +7,7 @@ export const AdminLayout = ({ children }: { children: React.ReactNode }) => {
         <div className="flex relative flex-row gap-10 w-full min-h-full h-max">
             
             <AdminNav />
-            <div className='flex flex-col w-full rounded h-max'>
+            <div className='flex flex-col flex-1 min-w-[500px] rounded h-max'>
                 
                     <motion.div
                         key={Math.random()}

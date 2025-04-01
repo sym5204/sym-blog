@@ -198,6 +198,33 @@ function ArticleEditor() {
     }
   };
 
+  const handleUnpublishArticle = async () => {
+    if (!articleId) {
+      showAlert('操作失败', '文章ID不存在', false);
+      return;
+    }
+
+    setError('');
+    setMessage('');
+
+    try {
+      const headers = { Authorization: `Bearer ${token}` };
+      await axios.put(`/api/articles/${articleId}`,
+        { ...article, isPublished: false },
+        { headers }
+      );
+
+      setArticle(prev => ({...prev, isPublished: false}));
+      showAlert('操作成功', '文章已取消发布');
+
+      setTimeout(() => {
+        router.push('/admin/articles');
+      }, 1500);
+    } catch (error: any) {
+      showAlert('操作失败', error.response?.data?.error || '取消发布失败', false);
+    }
+  };
+
   if (!isLoggedIn) {
     return null; // 未登录时不显示内容，会被重定向到登录页
   }
@@ -308,13 +335,23 @@ function ArticleEditor() {
             >
               保存文章
             </button>
-            <button
-              onClick={handlePublishArticle}
-              className="px-4 py-2 text-white bg-purple-500 rounded-md hover:bg-purple-600"
-              disabled={!articleId}
-            >
-              发布文章
-            </button>
+            {article.isPublished ? (
+              <button
+                onClick={handleUnpublishArticle}
+                className="px-4 py-2 text-white bg-red-500 rounded-md hover:bg-red-600"
+                disabled={!articleId}
+              >
+                取消发布
+              </button>
+            ) : (
+              <button
+                onClick={handlePublishArticle}
+                className="px-4 py-2 text-white bg-purple-500 rounded-md hover:bg-purple-600"
+                disabled={!articleId}
+              >
+                发布文章
+              </button>
+            )}
           </div>
         </div>
 

@@ -51,7 +51,10 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
 const LPage = () => {
 
     return (
-        <LearningPage />
+        <div className=''>
+            <LearningPage />
+        </div>
+        
     )
 }
 
